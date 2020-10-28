@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>WebSocket Project</title>
+    </head>
+<h1 style="text-align: center;">WebSocket with RabbitMQ</h1>
+    <div class="container" style="border: 5px solid black;">
+<h3>Received Messages!!!</h3>
+        <p id="connection" style="text-align: center; font-size: 14px;"></p>
+        <ul id="minus"></ul>
+       
+    </div>
+    <body>
+        <script>
+            var ws = new WebSocket("ws://127.0.0.1:5000/"),
+                messages = document.getElementById('ul');
+            ws.onmessage = function (event) {
+                var messages = document.getElementsByTagName('ul')[0],
+                    message = document.createElement('li'),
+                    content = document.createTextNode(event.data);
+                message.appendChild(content);
+                messages.appendChild(message);
+                make_color("Disconnected" , "Red");
+            };
+            
+            document.body.appendChild(messages);
+            
+            function make_color(state , r_color){
+                conn = document.getElementById("connection");
+                conn.innerHTML = state;
+                conn.style.color = r_color;
+            }
+        </script>
+    </body>
+</html>
